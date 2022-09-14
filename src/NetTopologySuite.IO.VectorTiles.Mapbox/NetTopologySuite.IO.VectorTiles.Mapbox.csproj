@@ -5,9 +5,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>8</LangVersion>
     <Nullable>disable</Nullable>
-    <Title>NetTopologySuite.IO.VectorTiles.Mapbox</Title>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Title>Cm.NetTopologySuite.IO.VectorTiles.Mapbox</Title>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <OutputType>Library</OutputType>
+    <PackageId>Cm.$(AssemblyName)</PackageId>
+    <Version>1.2209</Version>
+    <Authors>Copycd</Authors>
+    <Product>Cm.$(AssemblyName)</Product>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="protobuf-net" Version="2.4.0" />
+    <PackageReference Include="protobuf-net" Version="3.1.17" />
   </ItemGroup>
 
 </Project>
