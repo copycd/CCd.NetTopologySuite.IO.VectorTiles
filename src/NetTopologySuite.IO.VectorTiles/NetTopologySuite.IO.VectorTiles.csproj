@@ -8,10 +8,11 @@
     <Title>Cm.NetTopologySuite.IO.VectorTiles</Title>
 	<Description>Provides functionality to write Mapbox vector tiles</Description>
 	<PackageId>Cm.$(AssemblyName)</PackageId>
-	<Version>1.2209</Version>
+	<Version>1.2209.19</Version>
 	<Authors>Copycd</Authors>
 	<Product>Cm.$(AssemblyName)</Product>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<AssemblyName>Cm.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
