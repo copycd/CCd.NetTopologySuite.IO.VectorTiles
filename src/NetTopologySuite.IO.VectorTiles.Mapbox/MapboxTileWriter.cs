@@ -21,7 +21,7 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
         {
             IEnumerable<VectorTile> GetTiles()
             {
-                foreach (var tile in tree)
+                foreach (ulong tile in tree)
                 {
                     yield return tree[tile];
                 }
@@ -42,11 +42,11 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
             foreach (var vectorTile in vectorTiles)
             {
                 var tile = new Tiles.Tile(vectorTile.TileId);
-                var zFolder = Path.Combine(path, tile.Zoom.ToString());
+                string zFolder = Path.Combine(path, tile.Zoom.ToString());
                 if (!Directory.Exists(zFolder)) Directory.CreateDirectory(zFolder);
-                var xFolder = Path.Combine(zFolder, tile.X.ToString());
+                string xFolder = Path.Combine(zFolder, tile.X.ToString());
                 if (!Directory.Exists(xFolder)) Directory.CreateDirectory(xFolder);
-                var file = Path.Combine(xFolder, $"{tile.Y}.mvt");
+                string file = Path.Combine(xFolder, $"{tile.Y}.mvt");
 
                 using var stream = File.Open(file, FileMode.Create);
                 vectorTile.Write(stream, extent);
@@ -132,12 +132,12 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
             if (attributes == null || attributes.Count == 0)
                 return;
 
-            var aKeys = attributes.GetNames();
+            string[] aKeys = attributes.GetNames();
             var aValues = attributes.GetValues();
 
-            for (var a = 0; a < aKeys.Length; a++)
+            for (int a = 0; a < aKeys.Length; a++)
             {
-                var key = aKeys[a];
+                string key = aKeys[a];
                 if (string.IsNullOrEmpty(key)) continue;
 
                 var tileValue = ToTileValue(aValues[a]);
@@ -361,8 +361,8 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
             (double x1, double y1) = WebMercatorHandler.MetersToPixels(WebMercatorHandler.LatLonToMeters(polygon.EnvelopeInternal.MinY, polygon.EnvelopeInternal.MinX), zoom, 512);
             (double x2, double y2) = WebMercatorHandler.MetersToPixels(WebMercatorHandler.LatLonToMeters(polygon.EnvelopeInternal.MaxY, polygon.EnvelopeInternal.MaxX), zoom, 512);
 
-            var dx = Math.Abs(x2 - x1);
-            var dy = Math.Abs(y2 - y1);
+            double dx = Math.Abs(x2 - x1);
+            double dy = Math.Abs(y2 - y1);
 
             //Both must be greater than 0, and atleast one of them needs to be larger than 1. 
             return dx > 0 && dy > 0 && (dx > 1 || dy > 1);
