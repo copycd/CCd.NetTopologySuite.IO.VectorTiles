@@ -43,9 +43,21 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
             {
                 var tile = new Tiles.Tile(vectorTile.TileId);
                 string zFolder = Path.Combine(path, tile.Zoom.ToString());
+<<<<<<< HEAD
                 if (!Directory.Exists(zFolder)) Directory.CreateDirectory(zFolder);
                 string xFolder = Path.Combine(zFolder, tile.X.ToString());
                 if (!Directory.Exists(xFolder)) Directory.CreateDirectory(xFolder);
+=======
+
+                if (!Directory.Exists(zFolder))
+                    Directory.CreateDirectory(zFolder);
+
+                string xFolder = Path.Combine(zFolder, tile.X.ToString());
+
+                if (!Directory.Exists(xFolder))
+                    Directory.CreateDirectory(xFolder);
+
+>>>>>>> b75d308e1d5ba35683a7d7ec29273526696f6984
                 string file = Path.Combine(xFolder, $"{tile.Y}.mvt");
 
                 using var stream = File.Open(file, FileMode.Create);
@@ -77,6 +89,10 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
                 {
                     var feature = new Mapbox.Tile.Feature();
 
+                    // Features with empty geometries cannot be encoded
+                    if (localLayerFeature.Geometry.IsEmpty)
+                        continue;
+
                     // Encode geometry
                     switch (localLayerFeature.Geometry)
                     {
@@ -105,7 +121,7 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
                     AddAttributes(feature.Tags, keys, values, localLayerFeature.Attributes);
 
                     //Try and retrieve an ID from the attributes.
-                    var id = localLayerFeature.Attributes.GetOptionalValue(idAttributeName);
+                    object id = localLayerFeature.Attributes.GetOptionalValue(idAttributeName);
 
                     //Converting ID to string, then trying to parse. This will handle situations will ignore situations where the ID value is not actually an integer or ulong number.
                     if (id != null && ulong.TryParse(id.ToString(), out ulong idVal))
@@ -133,7 +149,11 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
                 return;
 
             string[] aKeys = attributes.GetNames();
+<<<<<<< HEAD
             var aValues = attributes.GetValues();
+=======
+            object[] aValues = attributes.GetValues();
+>>>>>>> b75d308e1d5ba35683a7d7ec29273526696f6984
 
             for (int a = 0; a < aKeys.Length; a++)
             {
@@ -180,6 +200,8 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
 
                 case string stringValue:
                     return new Tile.Value { StringValue = stringValue };
+                default:
+                    break;
             }
 
             return null;
@@ -196,11 +218,23 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
             for (int i = 0; i < geometry.NumGeometries; i++)
             {
                 var point = (Point)geometry.GetGeometryN(i);
+                // if the point is empty, there is nothing we can do with it
+                if (point.IsEmpty) continue;
+
+                int previousX = currentX, previousY = currentY;
                 (int x, int y) = tgt.Transform(point.CoordinateSequence, CoordinateIndex, ref currentX, ref currentY);
-                if (i == 0 || x > 0 || y > 0)
+
+                if (i == 0 || tgt.IsPointInExtent(currentX, currentY))
                 {
                     parameters.Add(GenerateParameterInteger(x));
                     parameters.Add(GenerateParameterInteger(y));
+                }
+                else
+                {
+                    // discard point if it lies outside tile extent and rollback to previous point
+                    // only for the case of multipoint
+                    currentX = previousX;
+                    currentY = previousY;
                 }
             }
 
@@ -208,7 +242,6 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
             yield return GenerateCommandInteger(MapboxCommandType.MoveTo, parameters.Count / 2);
             foreach (uint parameter in parameters)
                 yield return parameter;
-
         }
 
         private static IEnumerable<uint> Encode(ILineal lineal, TileGeometryTransform tgt)
@@ -255,7 +288,12 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
             bool ring = false, bool ccw = false)
         {
             // how many parameters for LineTo command
-            int count = sequence.Count;
+            // skipping the last point for rings since ClosePath is used instead
+            int count = ring ? sequence.Count - 1 : sequence.Count;
+
+            // If the sequence is empty there is nothing we can do with it.
+            if (count == 0)
+                return Array.Empty<uint>();
 
             // if we have a ring we need to check orientation
             if (ring)
@@ -266,10 +304,11 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
                     CoordinateSequences.Reverse(sequence);
                 }
             }
-            var encoded = new List<uint>();
-
-            // Start point
-            encoded.Add(GenerateCommandInteger(MapboxCommandType.MoveTo, 1));
+            var encoded = new List<uint>
+            {
+                // Start point
+                GenerateCommandInteger(MapboxCommandType.MoveTo, 1)
+            };
             var position = tgt.Transform(sequence, 0, ref currentX, ref currentY);
             encoded.Add(GenerateParameterInteger(position.x));
             encoded.Add(GenerateParameterInteger(position.y));
@@ -358,6 +397,8 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
         /// <returns></returns>
         private static bool IsGreaterThanOnePixelOfTile(Geometry polygon, int zoom)
         {
+            if (polygon.IsEmpty) return false;
+
             (double x1, double y1) = WebMercatorHandler.MetersToPixels(WebMercatorHandler.LatLonToMeters(polygon.EnvelopeInternal.MinY, polygon.EnvelopeInternal.MinX), zoom, 512);
             (double x2, double y2) = WebMercatorHandler.MetersToPixels(WebMercatorHandler.LatLonToMeters(polygon.EnvelopeInternal.MaxY, polygon.EnvelopeInternal.MaxX), zoom, 512);
 

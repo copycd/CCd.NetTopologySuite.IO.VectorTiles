@@ -23,8 +23,7 @@ namespace NetTopologySuite.IO.VectorTiles.Tests
         /// </summary>
         private const uint Extent = 4096 /* * 8 */;
 
-        protected readonly GeometryFactory Factory =
-            new GeometryFactory(new PrecisionModel(), 4326);
+        protected readonly GeometryFactory Factory = new GeometryFactory(new PrecisionModel(), 4326);
 
         protected readonly WKTReader Reader = new WKTReader(new GeometryFactory(new PrecisionModel(), 4326));
 
@@ -97,12 +96,21 @@ namespace NetTopologySuite.IO.VectorTiles.Tests
             // Points checked
             Assert.Equal(expected.OgcGeometryType, parsed.OgcGeometryType);
 
+            // Coordinates count checked
+            Assert.Equal(expected.Coordinates.Length, parsed.Coordinates.Length);
+
             double pixelDiff = (85.5 * 2);
             double error = 2 * System.Math.Sqrt(pixelDiff * pixelDiff * 2) / Extent;
             if (expected is IPuntal)
             {
-                double test = expected.Distance(parsed);
-                Assert.True(test < error);
+                // In MultiPoint case check all points that forms it
+                for (int i = 0; i < expected.NumGeometries; i++)
+                {
+                    var expectedPoint = (Point)expected.GetGeometryN(i);
+                    var parsedPoint = (Point)parsed.GetGeometryN(i);
+                    double test = expectedPoint.Distance(parsedPoint);
+                    Assert.True(test < error);
+                }
             }
             else
                 Assert.True(new HausdorffSimilarityMeasure().Measure(expected, parsed) > 1 - error);
