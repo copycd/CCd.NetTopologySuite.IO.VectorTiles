@@ -9,7 +9,7 @@
 		<Description>Provides functionality to write GeoJSON tiles</Description>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>Cm.$(AssemblyName)</PackageId>
-		<Version>1.2209</Version>
+		<Version>1.2301</Version>
 		<Authors>Copycd</Authors>
 		<Product>Cm.$(AssemblyName)</Product>
     </PropertyGroup>
@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="NetTopologySuite.IO.GeoJson" Version="2.0.4" />
+        <PackageReference Include="NetTopologySuite.IO.GeoJson" Version="3.0.0" />
         <PackageReference Include="NetTopologySuite.Features" Version="2.1.0" />
     </ItemGroup>
     
