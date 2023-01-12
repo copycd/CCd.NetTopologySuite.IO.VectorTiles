@@ -43,11 +43,6 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
             {
                 var tile = new Tiles.Tile(vectorTile.TileId);
                 string zFolder = Path.Combine(path, tile.Zoom.ToString());
-<<<<<<< HEAD
-                if (!Directory.Exists(zFolder)) Directory.CreateDirectory(zFolder);
-                string xFolder = Path.Combine(zFolder, tile.X.ToString());
-                if (!Directory.Exists(xFolder)) Directory.CreateDirectory(xFolder);
-=======
 
                 if (!Directory.Exists(zFolder))
                     Directory.CreateDirectory(zFolder);
@@ -57,7 +52,6 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
                 if (!Directory.Exists(xFolder))
                     Directory.CreateDirectory(xFolder);
 
->>>>>>> b75d308e1d5ba35683a7d7ec29273526696f6984
                 string file = Path.Combine(xFolder, $"{tile.Y}.mvt");
 
                 using var stream = File.Open(file, FileMode.Create);
@@ -149,11 +143,7 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
                 return;
 
             string[] aKeys = attributes.GetNames();
-<<<<<<< HEAD
-            var aValues = attributes.GetValues();
-=======
             object[] aValues = attributes.GetValues();
->>>>>>> b75d308e1d5ba35683a7d7ec29273526696f6984
 
             for (int a = 0; a < aKeys.Length; a++)
             {

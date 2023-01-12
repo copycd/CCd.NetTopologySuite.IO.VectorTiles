@@ -113,11 +113,6 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
                 }
             }
 
-<<<<<<< HEAD
-            private bool ShouldSerializeBoolValue() { return HasBoolValue; }
-
-=======
->>>>>>> b75d308e1d5ba35683a7d7ec29273526696f6984
             ProtoBuf.IExtension _extensionObject;
 
             ProtoBuf.IExtension ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -217,16 +212,16 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
         public enum GeomType
         {
 
-            [ProtoBuf.ProtoEnum(Name = @"Unknown")]
+            [ProtoBuf.ProtoEnum(Name = @"Unknown", Value = 0)]
             Unknown = 0,
 
-            [ProtoBuf.ProtoEnum(Name = @"Point")]
+            [ProtoBuf.ProtoEnum(Name = @"Point", Value = 1)]
             Point = 1,
 
-            [ProtoBuf.ProtoEnum(Name = @"LineString")]
+            [ProtoBuf.ProtoEnum(Name = @"LineString", Value = 2)]
             LineString = 2,
 
-            [ProtoBuf.ProtoEnum(Name = @"Polygon")]
+            [ProtoBuf.ProtoEnum(Name = @"Polygon", Value = 3)]
             Polygon = 3
         }
 
