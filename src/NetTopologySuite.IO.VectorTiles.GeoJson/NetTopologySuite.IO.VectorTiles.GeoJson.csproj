@@ -9,7 +9,7 @@
 		<Description>Provides functionality to write GeoJSON tiles</Description>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>Cm.$(AssemblyName)</PackageId>
-		<Version>1.2301</Version>
+		<Version>1.2301.18</Version>
 		<Authors>Copycd</Authors>
 		<Product>Cm.$(AssemblyName)</Product>
 		<AssemblyName>Cm.$(MSBuildProjectName)</AssemblyName>
