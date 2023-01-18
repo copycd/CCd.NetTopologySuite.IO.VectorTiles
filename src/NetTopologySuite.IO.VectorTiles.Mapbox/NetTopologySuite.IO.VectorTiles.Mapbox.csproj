@@ -12,6 +12,7 @@
     <Version>1.2301</Version>
     <Authors>Copycd</Authors>
     <Product>Cm.$(AssemblyName)</Product>
+    <AssemblyName>Cm.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
