@@ -9,8 +9,6 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
 {
     public class MapboxTileReader
     {
-
-
         private readonly GeometryFactory _factory;
 
         public MapboxTileReader()
@@ -43,8 +41,6 @@ namespace NetTopologySuite.IO.VectorTiles.Mapbox
         /// <returns></returns>
         public VectorTile Read(Stream stream, Tiles.Tile tileDefinition, string idAttributeName)
         {
-
-
             // Deserialize the tile
             var tile = ProtoBuf.Serializer.Deserialize<Mapbox.Tile>(stream);
 
