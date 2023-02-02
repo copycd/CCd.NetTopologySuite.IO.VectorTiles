@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="../../NetTopologySuite.IO.VectorTiles.Common.props" />
+  <Import Project="../../CCd.NetTopologySuite.IO.VectorTiles.Common.props" />
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>8</LangVersion>
     <Nullable>enable</Nullable>
 	<Version>1.2301.18</Version>
-	<Title>Cm.NetTopologySuite.IO.VectorTiles</Title>
+	<Title>CCd.NetTopologySuite.IO.VectorTiles</Title>
 	<Description>Provides functionality to write Mapbox vector tiles</Description>
 	<Authors>Copycd</Authors>
-	<PackageId>Cm.$(AssemblyName)</PackageId>
-	<Product>Cm.$(AssemblyName)</Product>
+	<PackageId>CCd.$(AssemblyName)</PackageId>
+	<Product>CCd.$(AssemblyName)</Product>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<AssemblyName>Cm.$(MSBuildProjectName)</AssemblyName>
+	<AssemblyName>CCd.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

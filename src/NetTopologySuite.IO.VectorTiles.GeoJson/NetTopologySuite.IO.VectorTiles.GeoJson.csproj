@@ -1,18 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="../../NetTopologySuite.IO.VectorTiles.Common.props" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../CCd.NetTopologySuite.IO.VectorTiles.Common.props" />
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>8</LangVersion>
         <Nullable>enable</Nullable>
-        <Title>Cm.NetTopologySuite.IO.VectorTiles.GeoJson</Title>
+        <Title>CCd.NetTopologySuite.IO.VectorTiles.GeoJson</Title>
 		<Description>Provides functionality to write GeoJSON tiles</Description>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<PackageId>Cm.$(AssemblyName)</PackageId>
+		<PackageId>CCd.$(AssemblyName)</PackageId>
 		<Version>1.2301.18</Version>
 		<Authors>Copycd</Authors>
-		<Product>Cm.$(AssemblyName)</Product>
-		<AssemblyName>Cm.$(MSBuildProjectName)</AssemblyName>
+		<Product>CCd.$(AssemblyName)</Product>
+		<AssemblyName>CCd.$(MSBuildProjectName)</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
