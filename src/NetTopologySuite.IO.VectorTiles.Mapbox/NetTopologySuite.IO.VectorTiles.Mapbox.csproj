@@ -13,6 +13,7 @@
     <Authors>Copycd</Authors>
     <Product>CCd.$(AssemblyName)</Product>
     <AssemblyName>CCd.$(MSBuildProjectName)</AssemblyName>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

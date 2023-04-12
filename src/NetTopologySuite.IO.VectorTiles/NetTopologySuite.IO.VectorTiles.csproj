@@ -13,6 +13,7 @@
 	<Product>CCd.$(AssemblyName)</Product>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<AssemblyName>CCd.$(MSBuildProjectName)</AssemblyName>
+	<Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
