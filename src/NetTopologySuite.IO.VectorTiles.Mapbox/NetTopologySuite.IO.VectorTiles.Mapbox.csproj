@@ -9,7 +9,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <OutputType>Library</OutputType>
     <PackageId>CCd.$(AssemblyName)</PackageId>
-    <Version>3.2309</Version>
+    <Version>3.2309.01</Version>
     <Authors>Copycd</Authors>
     <Product>CCd.$(AssemblyName)</Product>
     <AssemblyName>CCd.$(MSBuildProjectName)</AssemblyName>
